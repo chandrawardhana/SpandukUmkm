@@ -1,6 +1,9 @@
 {
   "version": 2,
+  "cleanUrls": true,
   "rewrites": [
+    { "source": "/index", "destination": "/index.html" },
+    { "source": "/app", "destination": "/app.html" },
     { "source": "/api/(.*)", "destination": "/api/$1" }
   ],
   "routes": [
