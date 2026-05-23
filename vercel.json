@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" }
+  ],
+  "routes": [
+    {
+      "src": "/app.html",
+      "headers": {
+        "X-Frame-Options": "DENY",
+        "X-Content-Type-Options": "nosniff",
+        "Referrer-Policy": "no-referrer"
+      },
+      "continue": true
+    },
+    {
+      "src": "/api/(.*)",
+      "headers": {
+        "Cache-Control": "no-store",
+        "X-Content-Type-Options": "nosniff"
+      },
+      "continue": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "no-referrer" }
+      ]
+    }
+  ]
+}

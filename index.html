@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpandukGen Kuliner — Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Poppins', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            800: '#991b1b', // Red 800
+                            900: '#7f1d1d', // Red 900
+                        },
+                        accent: {
+                            400: '#fb923c', // Orange 400
+                            500: '#f97316', // Orange 500
+                            600: '#ea580c', // Orange 600
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0) }
+            20%, 60% { transform: translateX(-8px) }
+            40%, 80% { transform: translateX(8px) }
+        }
+
+        .shake {
+            animation: shake 0.4s ease;
+        }
+
+        .sn-input {
+            letter-spacing: 0.15em;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Subtle background pattern matching app.html hero */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            opacity: 0.05;
+            background-image: url('data:image/svg+xml,%3Csvg width%3D%2760%27 height%3D%2760%27 viewBox%3D%270 0 60 60%27 xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%3E%3Cg fill%3D%27none%27 fill-rule%3D%27evenodd%27%3E%3Cg fill%3D%27%23ffffff%27 fill-opacity%3D%271%27%3E%3Cpath d%3D%27M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z%27%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E');
+            pointer-events: none;
+            z-index: 0;
+        }
+    </style>
+</head>
+
+<body class="bg-brand-900 min-h-screen flex items-center justify-center px-4">
+
+    <div class="w-full max-w-md fade-in relative z-10">
+        <!-- Card -->
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+            <!-- Header Card -->
+            <div class="bg-gradient-to-br from-brand-900 to-brand-800 px-8 pt-10 pb-8 text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-accent-500/20 rounded-2xl mb-4">
+                    <i class="fa-solid fa-store text-accent-500 text-3xl"></i>
+                </div>
+                <h1 class="text-2xl font-extrabold text-white tracking-tight">
+                    Spanduk<span class="text-accent-500">Gen Kuliner</span>
+                </h1>
+                <p class="text-red-200 text-sm mt-1">Generator Prompt Desain Spanduk UMKM F&B</p>
+            </div>
+
+            <!-- Form -->
+            <div class="px-8 py-8">
+                <div class="mb-6 text-center">
+                    <div class="inline-flex items-center gap-2 bg-orange-50 border border-orange-200 text-orange-700 text-xs font-medium px-3 py-1.5 rounded-full">
+                        <i class="fa-solid fa-lock text-accent-500"></i>
+                        Masukkan Serial Number untuk akses
+                    </div>
+                </div>
+
+                <div id="form-area">
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Serial Number</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-key absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                        <input id="sn-input" type="text" autocomplete="off" spellcheck="false" maxlength="40"
+                            placeholder="Masukan Serial Number"
+                            class="sn-input w-full pl-10 pr-4 py-3 border-2 border-slate-200 rounded-xl text-slate-800 focus:border-brand-800 focus:ring-2 focus:ring-brand-800/20 outline-none transition-all text-sm uppercase">
+                    </div>
+
+                    <!-- Pesan error -->
+                    <div id="error-msg"
+                        class="hidden mt-3 flex items-center gap-2 text-red-600 text-sm bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+                        <i class="fa-solid fa-circle-exclamation flex-shrink-0"></i>
+                        <span id="error-text">Serial number salah.</span>
+                    </div>
+
+                    <!-- Tombol masuk -->
+                    <button id="btn-login" onclick="handleLogin()"
+                        class="mt-5 w-full bg-accent-500 hover:bg-accent-600 text-white font-bold py-3 px-4 rounded-xl transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-orange-400/30 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        Masuk ke SpandukGen Kuliner
+                    </button>
+                </div>
+
+                <!-- Loading state -->
+                <div id="loading-area" class="hidden text-center py-6">
+                    <div class="inline-flex items-center gap-3 text-slate-500">
+                        <svg class="animate-spin h-5 w-5 text-brand-800" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.37 0 0 5.37 0 12h4z">
+                            </path>
+                        </svg>
+                        <span class="text-sm font-medium">Memverifikasi...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Card -->
+            <div class="border-t border-slate-100 px-8 py-4 text-center">
+                <p class="text-xs text-slate-400">
+                    <i class="fa-solid fa-shield-halved text-green-500 mr-1"></i>
+                    Serial number Anda diproses secara aman & terenkripsi
+                </p>
+            </div>
+        </div>
+
+        <p class="text-center text-red-200/60 text-xs mt-6">
+            &copy; 2026 SpandukGen Kuliner · Membantu UMKM Kuliner Naik Kelas
+        </p>
+    </div>
+
+    <script>
+        // --- Cek jika sudah login sebelumnya ---
+        (function () {
+            const token = localStorage.getItem('packgen_token');
+            if (token) {
+                window.location.replace('/app.html');
+            }
+        })();
+
+        // --- Enter key trigger login ---
+        document.getElementById('sn-input').addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') handleLogin();
+        });
+
+        // --- Auto uppercase input ---
+        document.getElementById('sn-input').addEventListener('input', function () {
+            const pos = this.selectionStart;
+            this.value = this.value.toUpperCase();
+            this.setSelectionRange(pos, pos);
+        });
+
+        // --- Handle Login ---
+        async function handleLogin() {
+            const snInput = document.getElementById('sn-input');
+            const sn = snInput.value.trim();
+
+            if (!sn) {
+                showError('Masukkan serial number terlebih dahulu.');
+                snInput.focus();
+                return;
+            }
+
+            setLoading(true);
+
+            try {
+                const res = await fetch('/api/validate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ sn })
+                });
+
+                const data = await res.json();
+
+                if (data.ok && data.token) {
+                    localStorage.setItem('packgen_token', data.token);
+                    localStorage.setItem('packgen_sn', sn);
+                    window.location.replace('/app.html');
+                } else {
+                    setLoading(false);
+                    showError(data.message || 'Serial number tidak valid.');
+                    shakeInput(snInput);
+                }
+            } catch (err) {
+                setLoading(false);
+                showError('Gagal terhubung ke server. Periksa koneksi internet Anda.');
+            }
+        }
+
+        function setLoading(state) {
+            document.getElementById('form-area').classList.toggle('hidden', state);
+            document.getElementById('loading-area').classList.toggle('hidden', !state);
+        }
+
+        function showError(msg) {
+            const errDiv = document.getElementById('error-msg');
+            document.getElementById('error-text').textContent = msg;
+            errDiv.classList.remove('hidden');
+        }
+
+        function shakeInput(el) {
+            el.classList.remove('shake');
+            void el.offsetWidth;
+            el.classList.add('shake');
+            el.value = '';
+            setTimeout(() => el.focus(), 50);
+        }
+    </script>
+</body>
+
+</html>
