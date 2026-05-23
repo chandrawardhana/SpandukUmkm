@@ -5,9 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpandukGen Kuliner — Login</title>
+    <link rel="manifest" href="/manifest.json">
+
+    <link rel="apple-touch-icon" href="/icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="SpandukGen">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -34,6 +41,7 @@
                 opacity: 0;
                 transform: translateY(16px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -45,9 +53,21 @@
         }
 
         @keyframes shake {
-            0%, 100% { transform: translateX(0) }
-            20%, 60% { transform: translateX(-8px) }
-            40%, 80% { transform: translateX(8px) }
+
+            0%,
+            100% {
+                transform: translateX(0)
+            }
+
+            20%,
+            60% {
+                transform: translateX(-8px)
+            }
+
+            40%,
+            80% {
+                transform: translateX(8px)
+            }
         }
 
         .shake {
@@ -91,7 +111,8 @@
             <!-- Form -->
             <div class="px-8 py-8">
                 <div class="mb-6 text-center">
-                    <div class="inline-flex items-center gap-2 bg-orange-50 border border-orange-200 text-orange-700 text-xs font-medium px-3 py-1.5 rounded-full">
+                    <div
+                        class="inline-flex items-center gap-2 bg-orange-50 border border-orange-200 text-orange-700 text-xs font-medium px-3 py-1.5 rounded-full">
                         <i class="fa-solid fa-lock text-accent-500"></i>
                         Masukkan Serial Number untuk akses
                     </div>
@@ -151,13 +172,13 @@
     </div>
 
     <script>
-        // --- Cek jika sudah login sebelumnya ---
-        (function () {
-            const token = localStorage.getItem('packgen_token');
-            if (token) {
-                window.location.replace('/app.html');
-            }
-        })();
+            // --- Cek jika sudah login sebelumnya ---
+            (function () {
+                const token = localStorage.getItem('packgen_token');
+                if (token) {
+                    window.location.replace('/app.html');
+                }
+            })();
 
         // --- Enter key trigger login ---
         document.getElementById('sn-input').addEventListener('keydown', function (e) {
